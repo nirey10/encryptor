@@ -19,6 +19,7 @@ public class xor implements algorithmInterface{
 		try{
 		    PrintWriter writer = null;	
 		    File file;
+		    int [] keys = new int[1];
 		    //D:\maven-java\encryptor\src\encryptor\algorithmTest.txt
 		    //D:\maven-java\encryptor\the-file-name.txt
 		    long startTime, estimatedTime;
@@ -38,13 +39,12 @@ public class xor implements algorithmInterface{
 					writer = new PrintWriter(file, "UTF-8");		
 					
 					System.out.println("Starting xor encryption");	//counting time
-					startTime = System.nanoTime();
 					
+					keys[0] = keyInput;
 					while ((sCurrentLine = br.readLine()) != null) 
-						writer.println(encrypt(sCurrentLine,keyInput));	
+						writer.println(encrypt(sCurrentLine,keys));	
 					
-					estimatedTime = System.nanoTime()-startTime;//counting time
-					System.out.println("Encription ended within "+estimatedTime + " nano seconds");
+					
 					break;
 					
 				case 1:
@@ -53,13 +53,12 @@ public class xor implements algorithmInterface{
 					writer = new PrintWriter(file, "UTF-8");
 					
 					System.out.println("Starting xor decryption");	//counting time
-					startTime = System.nanoTime();	
 					
+					keys[0] = keyInput;
 					while ((sCurrentLine = br.readLine()) != null) 
-						writer.println(decrypt(sCurrentLine,keyInput));	
+						writer.println(decrypt(sCurrentLine,keys));	
 					
-					estimatedTime = System.nanoTime()-startTime;//counting time
-					System.out.println("Decryption ended within "+estimatedTime + " nano seconds");
+					
 					break;
 					
 			}										
@@ -73,7 +72,7 @@ public class xor implements algorithmInterface{
 	}
 
 	@Override
-	public String encrypt(String line, int key) {
+	public String encrypt(String line, int[] key) {
 		
 		char [] encryptedString;
 		int length = line.length();
@@ -82,7 +81,7 @@ public class xor implements algorithmInterface{
 		
 		for (int i=0;i<length;i++)
 		{
-			Byte algorithmKey = (byte) key;
+			Byte algorithmKey = (byte) key[0];
 			encryptedString[i] = (char) (encryptedString[i] ^ algorithmKey);			
 		}
 				
@@ -90,7 +89,7 @@ public class xor implements algorithmInterface{
 	}
 
 	@Override
-	public String decrypt(String line, int key) {
+	public String decrypt(String line, int[] key) {
 		char [] decryptedString;
 		int length = line.length();
 		
@@ -98,7 +97,7 @@ public class xor implements algorithmInterface{
 		
 		for (int i=0;i<length;i++)
 		{
-			Byte algorithmKey = (byte) key;
+			Byte algorithmKey = (byte) key[0];
 			decryptedString[i] = (char) (decryptedString[i] ^ algorithmKey);			
 		}
 				

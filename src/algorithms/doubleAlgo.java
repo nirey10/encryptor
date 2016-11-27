@@ -18,8 +18,7 @@ public class doubleAlgo implements algorithmInterface {
 		BufferedReader br = null;
 		int [] keys = new int[2];
 		
-		caesar caesarAlgorithm = new caesar();
-		xor xorAlgorithm = new xor();
+	
 		
 		try{
 		    PrintWriter writer = null;	
@@ -48,18 +47,17 @@ public class doubleAlgo implements algorithmInterface {
 					}
 					br = new BufferedReader(new FileReader(path.toString()));
 					System.out.println("Starting caesar encryption");	 //counting time
-					startTime = System.nanoTime();
 					
 					while ((sCurrentLine = br.readLine()) != null)
 					{
-						String tempEncryption = caesarAlgorithm.encrypt(sCurrentLine,keys[0]);
-						writer.println(xorAlgorithm.encrypt(tempEncryption,keys[1]));
+						
+						
+						//String tempEncryption = caesarAlgorithm.encrypt(sCurrentLine,keys[0]);
+						writer.println(encrypt(sCurrentLine,keys));
 						
 					}
 					
-					estimatedTime = System.nanoTime()-startTime; //counting time
-					System.out.println("Encription ended within "+estimatedTime + " nano seconds");
-					
+				
 					break;
 					
 				case 1:
@@ -68,7 +66,7 @@ public class doubleAlgo implements algorithmInterface {
 					writer = new PrintWriter(file, "UTF-8");
 					
 					System.out.println("Starting caesar decryption"); //counting time
-					startTime = System.nanoTime();
+					
 					
 					
 					br = new BufferedReader(new FileReader("D:\\maven-java\\encryptor\\keys\\key.bin"));
@@ -81,12 +79,12 @@ public class doubleAlgo implements algorithmInterface {
 					br = new BufferedReader(new FileReader(path.toString()));
 					while ((sCurrentLine = br.readLine()) != null) 
 					{
-						String tempDecryption = xorAlgorithm.decrypt(sCurrentLine,keys[1]);
-						writer.println(caesarAlgorithm.decrypt(tempDecryption,keys[0]));	
+						
+						//String tempDecryption = xorAlgorithm.decrypt(sCurrentLine,keys[1]);
+						writer.println(decrypt(sCurrentLine,keys));	
 					}
 					
-					estimatedTime = System.nanoTime()-startTime; //counting time
-					System.out.println("Decryption ended within "+estimatedTime + " nano seconds");
+				
 					break;
 					
 			}										
@@ -101,15 +99,33 @@ public class doubleAlgo implements algorithmInterface {
 	}
 
 	@Override
-	public String encrypt(String line, int key) {
-		// TODO Auto-generated method stub
-		return null;
+	public String encrypt(String line, int[] key) {
+
+		caesar caesarAlgorithm = new caesar();
+		xor xorAlgorithm = new xor();
+		
+		String tempEncryption = caesarAlgorithm.encrypt(line,key);
+		int[] secondKey = new int[1];
+		secondKey[0] = key[1];
+		String finalEncryption = xorAlgorithm.encrypt(tempEncryption,secondKey);		
+		
+		return finalEncryption;
 	}
 
 	@Override
-	public String decrypt(String line, int key) {
-		// TODO Auto-generated method stub
-		return null;
+	public String decrypt(String line, int[] key) {
+
+		caesar caesarAlgorithm = new caesar();
+		xor xorAlgorithm = new xor();
+		int[] secondKey = new int[1];
+		secondKey[0] = key[1];
+		String tempdecryption = xorAlgorithm.decrypt(line,secondKey);
+		
+		String finalDecryption = caesarAlgorithm.decrypt(tempdecryption,key);		
+		
+		return finalDecryption;
+
+
 	}
 	
 

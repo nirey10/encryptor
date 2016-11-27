@@ -9,7 +9,7 @@ public interface algorithmInterface {
 	
 	
 	public void runAlgorithm (Path path, int mode);
-	public String encrypt(String line,int key);
-	public String decrypt(String line,int key);
+	public String encrypt(String line,int[] key);
+	public String decrypt(String line,int[] key);
 
 }

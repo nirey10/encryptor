@@ -16,14 +16,11 @@ public class reverse implements algorithmInterface {
 	public void runAlgorithm(Path path, int mode) {
 		BufferedReader br = null;
 		int key=0;
-		
-		caesar caesarAlgorithm = new caesar();
-		xor xorAlgorithm = new xor();
-		
+
 		try{
 		    PrintWriter writer = null;	
 		    File file=null;		    		    
-		    
+		    int[] keys = new int[1];
 		    //D:\maven-java\encryptor\src\encryptor\algorithmTest.txt
 		    //D:\maven-java\encryptor\encrypted\algorithmTest.txt
 		    long startTime, estimatedTime;
@@ -47,16 +44,14 @@ public class reverse implements algorithmInterface {
 					}
 					
 					System.out.println("Starting caesar encryption");	 //counting time
-					startTime = System.nanoTime();
-					
+					br = new BufferedReader(new FileReader(path.toString()));
+					keys[0]=key;
 					while ((sCurrentLine = br.readLine()) != null)
 					{						
-						writer.println(xorAlgorithm.decrypt(sCurrentLine,key));						
+						writer.println(encrypt(sCurrentLine,keys));						
 					}
 					
-					estimatedTime = System.nanoTime()-startTime; //counting time
-					System.out.println("Encription ended within "+estimatedTime + " nano seconds");
-					
+				
 					break;
 					
 				case 1:
@@ -65,24 +60,23 @@ public class reverse implements algorithmInterface {
 					writer = new PrintWriter(file, "UTF-8");
 					
 					System.out.println("Starting caesar decryption"); //counting time
-					startTime = System.nanoTime();
 					
 					
 					br = new BufferedReader(new FileReader("D:\\maven-java\\encryptor\\keys\\key.bin"));
 					i=0;
+				
 					while ((sCurrentLineKey = br.readLine()) != null)
 					{
 						key=Integer.parseInt(sCurrentLineKey);
 						i++;				
 					}
+					keys[0] = key;
 					br = new BufferedReader(new FileReader(path.toString()));
 					while ((sCurrentLine = br.readLine()) != null) 
 					{
-						writer.println(xorAlgorithm.encrypt(sCurrentLine,key));	
+						writer.println(decrypt(sCurrentLine,keys));	
 					}
 					
-					estimatedTime = System.nanoTime()-startTime; //counting time
-					System.out.println("Decryption ended within "+estimatedTime + " nano seconds");
 					break;
 					
 			}										
@@ -97,15 +91,21 @@ public class reverse implements algorithmInterface {
 	}
 
 	@Override
-	public String encrypt(String line, int key) {
-		// TODO Auto-generated method stub
-		return null;
+	public String encrypt(String line, int[] key) {
+		xor xorAlgorithm = new xor();
+		String encrypted = xorAlgorithm.decrypt(line,key);
+
+		return encrypted;
 	}
 
 	@Override
-	public String decrypt(String line, int key) {
-		// TODO Auto-generated method stub
-		return null;
+	public String decrypt(String line, int[] key) {
+
+		xor xorAlgorithm = new xor();
+		String decrypted = xorAlgorithm.encrypt(line,key);
+		
+		
+		return decrypted;
 	}
 	
 	

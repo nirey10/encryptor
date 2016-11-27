@@ -49,7 +49,8 @@ public class mainEX1 {
 		path = readPath();	
 		algorithm = readAlgorithm();
 		Path filePath = Paths.get(path);
-		
+		Timer time= new Timer();
+		time.startTimer();
 		if (syncOasync!=-1) // we want to do an action of an entire directory
 		{
 			switch (syncOasync)
@@ -72,7 +73,8 @@ public class mainEX1 {
 		}
 		else
 			aI.runAlgorithm(filePath,functionMode);
-		
+		time.stopTimer();
+		time.printTime();
 		
 	}
 

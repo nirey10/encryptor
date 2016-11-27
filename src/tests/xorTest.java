@@ -14,8 +14,10 @@ public class xorTest {
 		xor test = new xor();
 		String originalStr = "Encryption Test", encryptedStr,decryptedStr;
 
-		encryptedStr = test.encrypt(originalStr, 41);
-		decryptedStr = test.decrypt(encryptedStr, 41);
+		int[] key = new int[1];
+		key[0]=41;
+		encryptedStr = test.encrypt(originalStr, key);
+		decryptedStr = test.decrypt(encryptedStr, key);
 		
 		assertEquals(originalStr,decryptedStr);
 		
@@ -27,11 +29,17 @@ public class xorTest {
 		xor test = new xor();
 		String originalStr = "Encryption Test", encryptedStr,decryptedStr;
 
-		encryptedStr = test.encrypt(originalStr, 41);
-		decryptedStr = test.decrypt(encryptedStr, 188);
+		int[] key = new int[1];
+		key[0]=41;
+		encryptedStr = test.encrypt(originalStr, key);
+		key[0]=111;
+		decryptedStr = test.decrypt(encryptedStr, key);
 		
 		assertNotEquals(originalStr,decryptedStr);
 		
 	}
+	
+	
+	
 
 }

@@ -12,8 +12,10 @@ public class caesarTest {
 	public void smallKeyTest() {
 		caesar test = new caesar();
 		String originalStr = "Encryption Test", encryptedStr,decryptedStr;
-		encryptedStr = test.encrypt(originalStr, 2);
-		decryptedStr = test.decrypt(encryptedStr, 2);
+		int[] key = new int[1];
+		key[0]=2;
+		encryptedStr = test.encrypt(originalStr, key);
+		decryptedStr = test.decrypt(encryptedStr, key);
 		
 		assertEquals(originalStr,decryptedStr);
 		
@@ -23,8 +25,10 @@ public class caesarTest {
 		caesar test = new caesar();
 		String originalStr = "Encryption Test", encryptedStr,decryptedStr;
 
-		encryptedStr = test.encrypt(originalStr, 240);
-		decryptedStr = test.decrypt(encryptedStr, 240);
+		int[] key = new int[1];
+		key[0]=125;
+		encryptedStr = test.encrypt(originalStr, key);
+		decryptedStr = test.decrypt(encryptedStr, key);
 		
 		assertEquals(originalStr,decryptedStr);
 		
@@ -35,8 +39,11 @@ public class caesarTest {
 		caesar test = new caesar();
 		String originalStr = "Encryption Test", encryptedStr,decryptedStr;
 
-		encryptedStr = test.encrypt(originalStr, 38);
-		decryptedStr = test.decrypt(encryptedStr, 44);
+		int[] key = new int[1];
+		key[0]=38;
+		encryptedStr = test.encrypt(originalStr, key);
+		key[0]=44;
+		decryptedStr = test.decrypt(encryptedStr, key);
 		
 		assertNotEquals(originalStr,decryptedStr);
 		

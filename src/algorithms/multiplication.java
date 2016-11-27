@@ -33,14 +33,14 @@ public class multiplication implements algorithmInterface{
 					writer = new PrintWriter("the-file-name.txt", "UTF-8");
 					
 					while ((sCurrentLine = br.readLine()) != null) 
-						writer.println(encrypt(sCurrentLine,randomKey));											
+						//writer.println(encrypt(sCurrentLine,randomKey));											
 					break;
 					
 				case 1:
 					writer = new PrintWriter("the-file-name-decrypt.txt", "UTF-8");
 								
 					while ((sCurrentLine = br.readLine()) != null) 
-						writer.println(decrypt(sCurrentLine,keyInput));											
+						//writer.println(decrypt(sCurrentLine,keyInput));											
 					break;
 					
 			}										
@@ -54,7 +54,7 @@ public class multiplication implements algorithmInterface{
 	}
 
 	@Override
-	public String encrypt(String line, int key) {
+	public String encrypt(String line, int[] key) {
 		char [] encryptedString;
 		int length = line.length();
 		
@@ -62,15 +62,15 @@ public class multiplication implements algorithmInterface{
 		
 		for (int i=0;i<length;i++)
 		{
-			Byte algorithmKey = (byte) key;
-			encryptedString[i] = (char) (encryptedString[i] ^ algorithmKey);			
+			//Byte algorithmKey = (byte) key;
+			//encryptedString[i] = (char) (encryptedString[i] ^ algorithmKey);			
 		}
 				
 		return String.valueOf(encryptedString);	//returns the encrypted line	
 	}
 
 	@Override
-	public String decrypt(String line, int key) {
+	public String decrypt(String line, int[] key) {
 		char [] decryptedString;
 		int length = line.length();
 		
@@ -78,8 +78,8 @@ public class multiplication implements algorithmInterface{
 		
 		for (int i=0;i<length;i++)
 		{
-			Byte algorithmKey = (byte) key;
-			decryptedString[i] = (char) (decryptedString[i] ^ algorithmKey);			
+			//Byte algorithmKey = (byte) key;
+			//decryptedString[i] = (char) (decryptedString[i] ^ algorithmKey);			
 		}
 				
 		return String.valueOf(decryptedString);	//returns the encrypted line	

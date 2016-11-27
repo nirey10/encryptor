@@ -12,6 +12,8 @@ import java.nio.file.Path;
 import java.util.Random;
 import java.util.Scanner;
 
+import encryptor.Timer;
+
 
 
 public class caesar implements algorithmInterface {
@@ -25,12 +27,15 @@ public class caesar implements algorithmInterface {
 		try{
 		    PrintWriter writer = null;	
 		    File file=null;
-		    
+		    int[] keys = new int[1];
 		    //D:\maven-java\encryptor\src\encryptor\algorithmTest.txt
+		    //D:\maven-java\encryptor\encrypted\algorithmTest.txt
 		    //D:\maven-java\encryptor\encrypted\algorithmTest.txt
 		    long startTime, estimatedTime;
 			String sCurrentLine;
 			br = new BufferedReader(new FileReader(path.toString()));
+			
+			
 			
 			switch (mode)
 			{
@@ -47,13 +52,12 @@ public class caesar implements algorithmInterface {
 					System.out.println("The random key is: "+randomKey);
 					
 					System.out.println("Starting caesar encryption");	 //counting time
-					startTime = System.nanoTime();
 					
+					keys[0]=randomKey;
 					while ((sCurrentLine = br.readLine()) != null) 						
-						writer.println(encrypt(sCurrentLine,randomKey));
+						writer.println(encrypt(sCurrentLine,keys));
+				
 					
-					estimatedTime = System.nanoTime()-startTime; //counting time
-					System.out.println("Encription ended within "+estimatedTime + " nano seconds");
 					
 					break;
 					
@@ -66,13 +70,12 @@ public class caesar implements algorithmInterface {
 					Scanner scanner = new Scanner(System.in);
 					keyInput=(scanner.nextInt());	
 					System.out.println("Starting caesar decryption"); //counting time
-					startTime = System.nanoTime();
-					
+						
+					keys[0] = keyInput;
 					while ((sCurrentLine = br.readLine()) != null) 
-						writer.println(decrypt(sCurrentLine,keyInput));	
+						writer.println(decrypt(sCurrentLine,keys));	
 					
-					estimatedTime = System.nanoTime()-startTime; //counting time
-					System.out.println("Decryption ended within "+estimatedTime + " nano seconds");
+					
 					break;
 					
 			}										
@@ -86,7 +89,7 @@ public class caesar implements algorithmInterface {
 	}
 	
 	
-	public String encrypt(String line,int key)
+	public String encrypt(String line,int[] key)
 	{
 		char [] encryptedString;
 		int length = line.length();
@@ -96,14 +99,14 @@ public class caesar implements algorithmInterface {
 		for (int i=0;i<length;i++)
 		{
 			
-			encryptedString[i] = (char) ((int)encryptedString[i] + key);			
+			encryptedString[i] = (char) ((int)encryptedString[i] + key[0]);			
 			encryptedString[i] = (char) ((int)encryptedString[i]%MAXVALUE);//checking boundaries						
 		}
 				
 		return String.valueOf(encryptedString);	//returns the encrypted line	
 	}
 	
-	public String decrypt(String line,int key)
+	public String decrypt(String line,int[] key)
 	{
 		
 		char [] decryptedString;
@@ -113,7 +116,7 @@ public class caesar implements algorithmInterface {
 		
 		for (int i=0;i<length;i++)
 		{
-			newChar = ((int)decryptedString[i] - key);
+			newChar = ((int)decryptedString[i] - key[0]);
 			if (newChar<0)
 				decryptedString[i] = (char) (newChar + MAXVALUE);
 			else
