@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+  <report>
+    <type>3</type>
+    <executionTime>4286336</executionTime>
+    <exeptionName>succeed</exeptionName>
+    <exeptionMessage>succeed</exeptionMessage>
+    <exeptionStackTrace>succeed</exeptionStackTrace>
+  </report>
+</reports>
