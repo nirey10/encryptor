@@ -83,10 +83,15 @@ public class mainEX1 {
 		else
 		{
 			algorithm = readAlgorithm(-1);
-			System.out.println("press 0 if you want to update the xml file to that algorithm");
-			option=(scanner.nextInt()); //updating algorithm xml for the user choice
-			if (option==0)
-				xmlHandler.setNewAlgorithm(algorithm);
+			if (algorithm!=2)
+			{
+				System.out.println("press 0 if you want to update the xml file to that algorithm, 1 otherwise");
+				option=(scanner.nextInt()); //updating algorithm xml for the user choice
+				if (option==0)
+					xmlHandler.setNewAlgorithm(algorithm);
+			}
+			else
+				return;
 		}				
 		Path filePath = Paths.get(path);
 		System.out.println("Starting Encryption/Decryption process");
@@ -208,7 +213,8 @@ public class mainEX1 {
 				aI = xorAlgorithm;
 				break;
 			case 2:
-				aI= multiplicationAlgorithm;
+			//	aI= multiplicationAlgorithm;
+				System.out.println("This algorithm was not implemented");
 				break;
 			case 3:
 				if (functionMode==0)
